@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../Services/product.service';
 import { Product } from '../../Models/product';
 import { HttpClientModule } from '@angular/common/http';
-import { MatTableModule } from '@angular/material/table'; // Importation du MatTableModule
-import { MatSortModule } from '@angular/material/sort'; // Pour le tri de la table
-import { CommonModule } from '@angular/common'; // Pour les directives Angular standard
+import { MatTableModule } from '@angular/material/table'; 
+import { MatSortModule } from '@angular/material/sort'; 
+import { CommonModule } from '@angular/common'; 
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-product-list',
@@ -13,7 +14,8 @@ import { CommonModule } from '@angular/common'; // Pour les directives Angular s
     CommonModule,  
     HttpClientModule,  
     MatTableModule,  
-    MatSortModule,  
+    MatSortModule,
+    RouterModule
   ],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
@@ -39,7 +41,7 @@ export class ProductListComponent implements OnInit {
       .subscribe({
         next: (products) => {
           this.products = products;
-          this.dataSource = this.products; // Met à jour le dataSource
+          this.dataSource = this.products;
           this.loading = false;
           console.log(this.products);
         },

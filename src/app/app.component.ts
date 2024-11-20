@@ -1,5 +1,7 @@
+import { CommonModule } from '@angular/common';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Component } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 import { RouterOutlet } from '@angular/router';
 
 @Component({

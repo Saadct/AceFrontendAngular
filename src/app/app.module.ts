@@ -4,8 +4,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { ProductListComponent } from './Pages/product-list/product-list.component';
 import { ProductService } from './Services/product.service';
-import { RouterModule } from '@angular/router'; // Importer RouterModule
-import { routes } from './app.routes'; // Importer les routes définies
+import { RouterModule } from '@angular/router'; 
+import { routes } from './app.routes';
 /*
 @NgModule({
   declarations: [
