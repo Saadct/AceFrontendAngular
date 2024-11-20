@@ -8,6 +8,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-product-edit',
@@ -36,7 +38,8 @@ export class ProductEditComponent implements OnInit {
     private fb: FormBuilder,
     private route: ActivatedRoute,
     private productService: ProductService,
-    private router : Router
+    private router : Router,
+    private snackBar: MatSnackBar
   ) {
     this.productForm = this.fb.group({
       id: [''],
@@ -90,16 +93,25 @@ export class ProductEditComponent implements OnInit {
       this.productService.updateProduct(this.productId, updatedProduct).subscribe(
         (response) => {
           console.log('Produit mis à jour avec succès', response);
-          alert('Produit mis à jour avec succès !');
+          this.showNotification('Produit mis à jour avec succès !', 'success');
           this.router.navigate(['']);
         },
         (error) => {
           console.error('Erreur lors de la mise à jour du produit', error);
-          alert('Erreur lors de la mise à jour du produit. Veuillez réessayer.');
+          this.showNotification('Erreur lors de la mise à jour du produit. Veuillez réessayer.', 'error');
+
         }
       );
     } else {
-      alert('Le formulaire contient des erreurs. Veuillez vérifier les champs.');
+      this.showNotification('Le formulaire contient des erreurs. Veuillez vérifier les champs', 'error');
+
     }
+  }
+
+  private showNotification(message: string, type: 'success' | 'error') {
+    this.snackBar.open(message, 'Fermer', {
+      duration: 4000,
+      panelClass: type === 'success' ? 'snack-success' : 'snack-error'
+    });
   }
 }

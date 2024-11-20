@@ -1,5 +1,8 @@
 <div class="mat-app-background basic-container ">
-    <button mat-flat-button color="primary" [routerLink]="'product-create'" class="custom-button">
+  <h2>Liste des produits</h2>
+
+  
+  <button mat-flat-button color="primary" [routerLink]="'product-create'" class="custom-button">
         Créer un produit
       </button>
 
@@ -45,7 +48,6 @@
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
-  
-  
+
   </div>
   

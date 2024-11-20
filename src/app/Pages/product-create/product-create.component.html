@@ -1,55 +1,54 @@
 <button mat-flat-button color="primary" [routerLink]="''" class="custom-button">
-    retour
-  </button>
+    Retour
+</button>
+
 <div class="product-create">
     <h2>Créer un produit</h2>
-  
+
     <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
-      <div>
-        <label for="nom">Nom</label>
-        <input id="nom" formControlName="nom" type="text" />
-        <div *ngIf="productForm.get('nom')?.invalid && productForm.get('nom')?.touched">
-          Le nom est requis.
+        <div class="form-field">
+            <label for="nom">Nom</label>
+            <input id="nom" formControlName="nom" type="text" />
+            <div *ngIf="productForm.get('nom')?.invalid && productForm.get('nom')?.touched">
+                Le nom est requis.
+            </div>
         </div>
-      </div>
-  
-      <div>
-        <label for="description">Description</label>
-        <input id="description" formControlName="description" type="text" />
-        <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched">
-          La description est requise.
+
+        <div class="form-field">
+            <label for="description">Description</label>
+            <input id="description" formControlName="description" type="text" />
+            <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched">
+                La description est requise.
+            </div>
         </div>
-      </div>
-  
-      <div>
-        <label for="prix">Prix</label>
-        <input id="prix" formControlName="prix" type="number" />
-        <div *ngIf="productForm.get('prix')?.invalid && productForm.get('prix')?.touched">
-          Le prix est requis et doit être supérieur ou égal à 0.
+
+        <div class="form-field">
+            <label for="prix">Prix</label>
+            <input id="prix" formControlName="prix" type="number" />
+            <div *ngIf="productForm.get('prix')?.invalid && productForm.get('prix')?.touched">
+                Le prix est requis et doit être supérieur ou égal à 0.
+            </div>
         </div>
-      </div>
-  
-      <div>
-        <label for="quantiteEnStock">Quantité en stock</label>
-        <input id="quantiteEnStock" formControlName="quantiteEnStock" type="number" />
-        <div *ngIf="productForm.get('quantiteEnStock')?.invalid && productForm.get('quantiteEnStock')?.touched">
-          La quantité en stock est requise et doit être supérieure ou égale à 0.
+
+        <div class="form-field">
+            <label for="quantiteEnStock">Quantité en stock</label>
+            <input id="quantiteEnStock" formControlName="quantiteEnStock" type="number" />
+            <div *ngIf="productForm.get('quantiteEnStock')?.invalid && productForm.get('quantiteEnStock')?.touched">
+                La quantité en stock est requise et doit être supérieure ou égale à 0.
+            </div>
         </div>
-      </div>
-  
-      <div>
-        <label for="dateAjout">Date d'ajout</label>
-        <input id="dateAjout" formControlName="dateAjout" type="date" />
-        <div *ngIf="productForm.get('dateAjout')?.invalid && productForm.get('dateAjout')?.touched">
-          La date d'ajout est requise.
+
+        <div class="form-field">
+            <label for="dateAjout">Date d'ajout</label>
+            <input id="dateAjout" formControlName="dateAjout" type="date" />
+            <div *ngIf="productForm.get('dateAjout')?.invalid && productForm.get('dateAjout')?.touched">
+                La date d'ajout est requise.
+            </div>
         </div>
-      </div>
-  
-      <button type="submit" [disabled]="productForm.invalid || loading">Créer le produit</button>
+
+        <button type="submit" [disabled]="productForm.invalid || loading" class="submit-button">
+            Créer le produit
+        </button>
     </form>
-  
-    <div *ngIf="loading">Chargement...</div>
-    <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
-    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
-  </div>
-  
+
+</div>

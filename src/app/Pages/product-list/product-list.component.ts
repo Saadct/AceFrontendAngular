@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductService } from '../../Services/product.service';
 import { Product } from '../../Models/product';
 import { HttpClientModule } from '@angular/common/http';
@@ -7,6 +7,8 @@ import { MatSortModule } from '@angular/material/sort';
 import { CommonModule } from '@angular/common'; 
 import { Router, RouterModule } from '@angular/router';
 import {MatIconModule} from '@angular/material/icon';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';  
 
 @Component({
   selector: 'app-product-list',
@@ -17,7 +19,8 @@ import {MatIconModule} from '@angular/material/icon';
     MatTableModule,  
     MatSortModule,
     RouterModule,
-    MatIconModule
+    MatIconModule,
+    MatPaginatorModule
   ],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
@@ -29,7 +32,10 @@ export class ProductListComponent implements OnInit {
   displayedColumns: string[] = [ 'nom','desc', 'prix', 'qt', 'dateAjt', 'actions'];
   dataSource = this.products;
 
-  constructor(private productService: ProductService, private router : Router) {}
+  @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+
+
+  constructor(private productService: ProductService, private router : Router, private snackBar: MatSnackBar) {}
 
   ngOnInit(): void {
     this.loadProducts();
@@ -45,12 +51,11 @@ export class ProductListComponent implements OnInit {
           this.products = products;
           this.dataSource = this.products;
           this.loading = false;
-          console.log(this.products);
-        },
+             },
         error: (err) => {
           this.error = 'Erreur lors du chargement des produits';
           this.loading = false;
-          console.error('Erreur:', err);
+          this.showNotification(this.error, 'error')
         },
         complete: () => {
           this.loading = false;
@@ -75,9 +80,16 @@ export class ProductListComponent implements OnInit {
           this.loadProducts();
         },
         (error) => {
-          console.error('Erreur lors de la suppression du produit', error);
+          this.showNotification('Erreur lors de la suppression du produit !', 'error');
         }
       );
     }
+  }
+
+  private showNotification(message: string, type: 'success' | 'error') {
+    this.snackBar.open(message, 'Fermer', {
+      duration: 4000,
+      panelClass: type === 'success' ? 'snack-success' : 'snack-error'
+    });
   }
 }
