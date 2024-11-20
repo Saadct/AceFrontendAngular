@@ -78,6 +78,7 @@ export class ProductListComponent implements OnInit {
       this.productService.deleteProduct(id).subscribe(
         () => {
           this.loadProducts();
+          this.showNotification('Produit supprimé avec succées !', 'success')
         },
         (error) => {
           this.showNotification('Erreur lors de la suppression du produit !', 'error');
