@@ -1,0 +1,57 @@
+<p>product-edit works!</p>
+
+<button mat-flat-button color="primary" [routerLink]="''" class="custom-button">
+    retour
+  </button>
+<div class="product-edit">
+    <h2>Éditer un produit</h2>
+  
+    <form [formGroup]="productForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="nom">Nom</label>
+        <input id="nom" formControlName="nom" type="text" />
+        <div *ngIf="productForm.get('nom')?.invalid && productForm.get('nom')?.touched">
+          Le nom est requis.
+        </div>
+      </div>
+  
+      <div>
+        <label for="description">Description</label>
+        <input id="description" formControlName="description" type="text" />
+        <div *ngIf="productForm.get('description')?.invalid && productForm.get('description')?.touched">
+          La description est requise.
+        </div>
+      </div>
+  
+      <div>
+        <label for="prix">Prix</label>
+        <input id="prix" formControlName="prix" type="number" />
+        <div *ngIf="productForm.get('prix')?.invalid && productForm.get('prix')?.touched">
+          Le prix est requis et doit être supérieur ou égal à 0.
+        </div>
+      </div>
+  
+      <div>
+        <label for="quantiteEnStock">Quantité en stock</label>
+        <input id="quantiteEnStock" formControlName="quantiteEnStock" type="number" />
+        <div *ngIf="productForm.get('quantiteEnStock')?.invalid && productForm.get('quantiteEnStock')?.touched">
+          La quantité en stock est requise et doit être supérieure ou égale à 0.
+        </div>
+      </div>
+  
+      <div>
+        <label for="dateAjout">Date d'ajout</label>
+        <input id="dateAjout" formControlName="dateAjout" type="date" />
+        <div *ngIf="productForm.get('dateAjout')?.invalid && productForm.get('dateAjout')?.touched">
+          La date d'ajout est requise.
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="productForm.invalid || loading">éditer le produit</button>
+    </form>
+  
+    <div *ngIf="loading">Chargement...</div>
+    <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+    <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+  </div>
+  

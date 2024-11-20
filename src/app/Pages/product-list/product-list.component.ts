@@ -5,7 +5,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table'; 
 import { MatSortModule } from '@angular/material/sort'; 
 import { CommonModule } from '@angular/common'; 
-import { RouterModule } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
+import {MatIconModule} from '@angular/material/icon';
 
 @Component({
   selector: 'app-product-list',
@@ -15,7 +16,8 @@ import { RouterModule } from '@angular/router';
     HttpClientModule,  
     MatTableModule,  
     MatSortModule,
-    RouterModule
+    RouterModule,
+    MatIconModule
   ],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css']
@@ -24,10 +26,10 @@ export class ProductListComponent implements OnInit {
   products: Product[] = [];
   loading: boolean = false;
   error: string | null = null;
-  displayedColumns: string[] = [ 'nom','desc', 'prix', 'qt', 'dateAjt'];
+  displayedColumns: string[] = [ 'nom','desc', 'prix', 'qt', 'dateAjt', 'actions'];
   dataSource = this.products;
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private router : Router) {}
 
   ngOnInit(): void {
     this.loadProducts();
@@ -60,5 +62,22 @@ export class ProductListComponent implements OnInit {
     const startIndex = event.pageIndex * event.pageSize;
     const endIndex = startIndex + event.pageSize;
     this.dataSource = this.products.slice(startIndex, endIndex);
+  }
+
+  editProduct(id : string) {
+    this.router.navigate(['product-edit', id]);
+  }
+
+  deleteProduct(id : string) {
+    if (confirm('Voulez-vous vraiment supprimer ce produit ?')) {
+      this.productService.deleteProduct(id).subscribe(
+        () => {
+          this.loadProducts();
+        },
+        (error) => {
+          console.error('Erreur lors de la suppression du produit', error);
+        }
+      );
+    }
   }
 }
